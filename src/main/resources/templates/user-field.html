@@ -1,0 +1,31 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+
+<html>
+<body>
+<form th:action="@{/api/logout}" method="POST">
+    <input type="submit" value="Logout"/>
+</form>
+<br>
+<form action="#" th:action="@{/api/admin/saveRole}" th:object="${saveOrUpdateUser}" method="post">
+
+    <input type="hidden" th:field="*{id}"/>
+
+    Name <input type="text" th:field="*{name}" id="Name"/>
+    <br><br>
+    Surname <input type="text" th:field="*{surname}"/>
+    <br><br>
+    Age <input type="number" th:field="*{age}"/>
+    <br><br>
+    Job <input type="text" th:field="*{job}"/>
+    <br><br>
+    Username(Login) <input type="text" th:field="*{userName}"/>
+    <br><br>
+    Password <input type="text" th:field="*{password}"/>
+    <br><br>
+
+    <input type="submit" value="OK">
+</form>
+
+</body>
+</html>
