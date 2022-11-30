@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/api/logout}" method="POST">
+    <input type="submit" value="Logout"/>
+</form>
+<br>
+<h2>Information about you:</h2>
+<br><br>
+
+<form th:object="${oneUser}">
+
+    Name: <b th:text="${oneUser.name}"></b>
+    <br><br>
+    Surname: <b th:text="${oneUser.surname}"></b>
+    <br><br>
+    Age: <b th:text="${oneUser.age}"></b>
+    <br><br>
+    Job: <b th:text="${oneUser.job}"></b>
+    <br><br>
+    Username: <b th:text="${oneUser.userName}"></b>
+    <br><br>
+    Password: <b th:text="${oneUser.password}"></b>
+    <br><br>
+    Role: <b th:each="role : ${oneUser.getRoles()}">
+    <b th:text="${role.roleName}"/>
+</b>
+
+</form>
+<br><br>
+<br><br>
+<div sec:authorize="hasRole('ROLE_ADMIN')">
+    <button
+            th:data-url="@{/api/admin/crud}"
+            onclick="window.location.href = (this.getAttribute('data-url'))">CRUD
+    </button>
+</div>
+
+</body>
+</html>

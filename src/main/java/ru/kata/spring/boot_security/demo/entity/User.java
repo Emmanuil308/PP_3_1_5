@@ -3,8 +3,8 @@ package ru.kata.spring.boot_security.demo.entity;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "users_table")
@@ -38,7 +38,7 @@ public class User {
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "users_id")
             ,inverseJoinColumns = @JoinColumn(name = "id"))
-    private List<Role> roleList;
+    private Set<Role> roleSet;
 
 
     public User() {
@@ -55,15 +55,15 @@ public class User {
     }
 
     public void addRoleForUser(Role role) {
-        if (roleList == null) {
-            roleList = new ArrayList<>();
+        if (roleSet == null) {
+            roleSet = new HashSet<>();
         }
-        roleList.add(role);
+        roleSet.add(role);
     }
 
-    public List<Role> getRoles() { return roleList; }
+    public Set<Role> getRoles() { return roleSet; }
 
-    public void setRoles(List<Role> roleList) { this.roleList = roleList; }
+    public void setRoles(Set<Role> roleList) { this.roleSet = roleList; }
 
     public int getId() {
         return id;

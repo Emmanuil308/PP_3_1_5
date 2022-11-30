@@ -49,14 +49,8 @@ public class DaoUserImpl implements DaoUser {
 
     public User getUserByUserName(String userName) {
 
-        try {
-            Query query = em.createQuery("from User where userName=:paramName");
-            query.setParameter("paramName", userName);
-            return (User) query.getSingleResult();
-
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-            return null;
-        }
+        Query query = em.createQuery("from User where userName=:paramName");
+        query.setParameter("paramName", userName);
+        return (User) query.getSingleResult();
     }
 }
