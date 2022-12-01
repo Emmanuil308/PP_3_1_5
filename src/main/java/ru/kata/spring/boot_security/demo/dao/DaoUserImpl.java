@@ -1,10 +1,7 @@
 package ru.kata.spring.boot_security.demo.dao;
 
-
 import org.springframework.stereotype.Repository;
-import ru.kata.spring.boot_security.demo.entity.Role;
 import ru.kata.spring.boot_security.demo.entity.User;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -21,8 +18,8 @@ public class DaoUserImpl implements DaoUser {
     }
 
     public List<User> getAllUser() {
-
-        TypedQuery<User> userTypedQuery = em.createQuery("from User", User.class);
+        TypedQuery<User> userTypedQuery =
+                em.createQuery("select u from User u join fetch u.roleSet rs", User.class);
 
         return userTypedQuery.getResultList();
     }
@@ -49,7 +46,7 @@ public class DaoUserImpl implements DaoUser {
 
     public User getUserByUserName(String userName) {
 
-        Query query = em.createQuery("from User where userName=:paramName");
+        Query query = em.createQuery("select u from User u join fetch u.roleSet rs where u.userName=:paramName");
         query.setParameter("paramName", userName);
         return (User) query.getSingleResult();
     }

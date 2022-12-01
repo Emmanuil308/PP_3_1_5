@@ -35,7 +35,7 @@ public class User {
     @NotNull
     private String password;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "users_id")
             ,inverseJoinColumns = @JoinColumn(name = "id"))
     private Set<Role> roleSet;
