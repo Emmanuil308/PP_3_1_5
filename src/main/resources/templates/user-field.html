@@ -7,7 +7,8 @@
     <input type="submit" value="Logout"/>
 </form>
 <br>
-<form action="#" th:action="@{/api/admin/saveRole}" th:object="${saveOrUpdateUser}" method="post">
+<!--<form action="#" th:action="@{/api/admin/saveRole}" th:object="${saveOrUpdateUser}" method="post">-->
+<form action="#" th:action="@{/api/admin/saveUser}" th:object="${saveOrUpdateUser}" method="post">
 
     <input type="hidden" th:field="*{id}"/>
 
@@ -23,6 +24,10 @@
     <br><br>
     Password <input type="text" th:field="*{password}"/>
     <br><br>
+    Role(s) <input type="checkbox" th:field="*{roleUSER}" id="USER" value="USER"/><label
+        for="USER">USER</label>
+    <input type="checkbox" th:field="*{roleADMIN}" id="ADMIN" value="ADMIN"/><label
+        for="ADMIN">ADMIN</label>
 
     <input type="submit" value="OK">
 </form>

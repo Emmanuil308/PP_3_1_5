@@ -27,7 +27,7 @@
     <br><br>
     Password: <b th:text="${oneUser.password}"></b>
     <br><br>
-    Role: <b th:each="role : ${oneUser.getRoles()}">
+    Role: <b th:each="role : ${oneUser.getRoleSet()}">
     <b th:text="${role.roleName}"/>
 </b>
 

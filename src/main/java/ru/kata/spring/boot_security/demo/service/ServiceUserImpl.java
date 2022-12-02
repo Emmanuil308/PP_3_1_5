@@ -5,6 +5,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.dao.DaoUser;
+import ru.kata.spring.boot_security.demo.entity.Role;
 import ru.kata.spring.boot_security.demo.entity.User;
 
 import java.util.List;
@@ -35,6 +36,13 @@ public class ServiceUserImpl implements ServiceUser {
     @Transactional
     public void saveUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        if (user.getRoleUSER() != null) {
+            user.addRoleForUser(new Role("ROLE_" + user.getRoleUSER()));
+        }
+        if (user.getRoleADMIN() != null) {
+            user.addRoleForUser(new Role("ROLE_" + user.getRoleADMIN()));
+        }
 
         daoUser.saveUser(user);
     }

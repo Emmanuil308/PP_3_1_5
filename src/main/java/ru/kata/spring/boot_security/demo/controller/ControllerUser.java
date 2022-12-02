@@ -5,8 +5,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.kata.spring.boot_security.demo.entity.Role;
-import ru.kata.spring.boot_security.demo.entity.RoleNames;
 import ru.kata.spring.boot_security.demo.entity.User;
 import ru.kata.spring.boot_security.demo.service.ServiceUser;
 
@@ -16,8 +14,6 @@ import ru.kata.spring.boot_security.demo.service.ServiceUser;
 public class ControllerUser {
 
     private ServiceUser serviceUser;
-
-    private User tempUserForSave;
 
     @Autowired
     public ControllerUser(ServiceUser serviceUser) {
@@ -41,30 +37,11 @@ public class ControllerUser {
 
         return "user-field";
     }
-//THIS
-
-    @PostMapping("/admin/saveRole")
-    public String saveRole(@ModelAttribute("saveOrUpdateUser") User user, Model model) {
-
-        RoleNames roleNames = new RoleNames();
-        model.addAttribute("saveOrUpdateRole", roleNames);
-
-        tempUserForSave = user;
-
-        return "user-role";
-    }
-
 
     @PostMapping("/admin/saveUser")
-    public String saveUser(@ModelAttribute("saveOrUpdateRole") RoleNames roleNames) {
+    public String saveUser(@ModelAttribute("saveOrUpdateUser") User user) {
 
-        if (roleNames.getUserRole1() != null) {
-            tempUserForSave.addRoleForUser(new Role(roleNames.getUserRole1()));
-        }
-        if (roleNames.getUserRole2() != null) {
-            tempUserForSave.addRoleForUser(new Role(roleNames.getUserRole2()));
-        }
-        serviceUser.saveUser(tempUserForSave);
+        serviceUser.saveUser(user);
 
         return "redirect:/api/admin/crud";
     }

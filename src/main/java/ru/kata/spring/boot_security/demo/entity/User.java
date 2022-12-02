@@ -40,6 +40,11 @@ public class User {
             ,inverseJoinColumns = @JoinColumn(name = "id"))
     private Set<Role> roleSet;
 
+    @Transient
+    private String roleADMIN;
+    @Transient
+    private String roleUSER;
+
 
     public User() {
     }
@@ -61,9 +66,6 @@ public class User {
         roleSet.add(role);
     }
 
-    public Set<Role> getRoles() { return roleSet; }
-
-    public void setRoles(Set<Role> roleList) { this.roleSet = roleList; }
 
     public int getId() {
         return id;
@@ -121,13 +123,28 @@ public class User {
         this.password = password;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", age=" + age +
-                ", job='" + job + '\'' +
-                '}';
+    public Set<Role> getRoleSet() {
+        return roleSet;
     }
+
+    public void setRoleSet(Set<Role> roleSet) {
+        this.roleSet = roleSet;
+    }
+
+    public String getRoleADMIN() {
+        return roleADMIN;
+    }
+
+    public void setRoleADMIN(String roleADMIN) {
+        this.roleADMIN = roleADMIN;
+    }
+
+    public String getRoleUSER() {
+        return roleUSER;
+    }
+
+    public void setRoleUSER(String roleUSER) {
+        this.roleUSER = roleUSER;
+    }
+
 }
