@@ -47,11 +47,11 @@ public class DaoUserImpl implements DaoUser {
         em.remove(em.find(User.class, id));
     }
 
-    public User getUserByUserName(String userName) {
+    public User getUserByEmail(String email) {
 
         Query query = em.createQuery("select distinct u from User u " +
-                "join fetch u.roleSet rs where u.userName=:paramName");
-        query.setParameter("paramName", userName);
+                "join fetch u.roleSet rs where u.email=:paramName");
+        query.setParameter("paramName", email);
         return (User) query.getSingleResult();
     }
 }

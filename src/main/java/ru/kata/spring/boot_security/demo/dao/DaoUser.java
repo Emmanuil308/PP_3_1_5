@@ -13,5 +13,5 @@ public interface DaoUser {
 
     public void removeUserById(int id);
 
-    User getUserByUserName(String username);
+    User getUserByEmail(String email);
 }

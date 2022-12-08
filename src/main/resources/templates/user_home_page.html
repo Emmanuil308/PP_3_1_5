@@ -2,44 +2,110 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>User page</title>
 </head>
 <body>
-<form th:action="@{/api/logout}" method="POST">
-    <input type="submit" value="Logout"/>
-</form>
-<br>
-<h2>Information about you:</h2>
-<br><br>
 
-<form th:object="${oneUser}">
 
-    Name: <b th:text="${oneUser.name}"></b>
-    <br><br>
-    Surname: <b th:text="${oneUser.surname}"></b>
-    <br><br>
-    Age: <b th:text="${oneUser.age}"></b>
-    <br><br>
-    Job: <b th:text="${oneUser.job}"></b>
-    <br><br>
-    Username: <b th:text="${oneUser.userName}"></b>
-    <br><br>
-    Password: <b th:text="${oneUser.password}"></b>
-    <br><br>
-    Role: <b th:each="role : ${oneUser.getRoleSet()}">
-    <b th:text="${role.roleName}"/>
-</b>
+<nav class="navbar navbar-dark bg-dark navbar-fixed-top">
+    <div class="container-fluid">
 
-</form>
-<br><br>
-<br><br>
-<div sec:authorize="hasRole('ROLE_ADMIN')">
-    <button
-            th:data-url="@{/api/admin/crud}"
-            onclick="window.location.href = (this.getAttribute('data-url'))">CRUD
-    </button>
+        <div class="navbar-header" th:object="${oneUser}">
+            <a class="navbar-brand row" style="color: white"><b th:text="*{email}"></b> with roles:
+                <span th:text="Admin" th:if="*{roleADMIN}"></span>
+                <span th:text="User" th:if="*{roleUSER}"></span>
+            </a>
+        </div>
+        <div class="nav navbar-nav navbar-right">
+            <form th:action="@{/api/logout}" method="POST">
+                <button class="btn btn-link btn-lg" style="color: grey" type="submit"><small>Logout</small></button>
+            </form>
+        </div>
+
+    </div>
+</nav>
+
+<!-- _______________________________________SIDEBAR__________________________________________________ -->
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 col-lg-2 pl-0 pr-0 sidebard">
+
+            <br>
+            <div class="btn-group btn-group-vertical btn-block">
+
+                <div class="btn-group btn-group-vertical btn-block">
+                    <a href="/api/user" class="btn btn-primary rounded" style="text-align:left; padding-left:12px"
+                       role="button">User</a>
+                </div>
+
+                <div class="btn-group btn-group-vertical btn-block" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a href="/api/admin" class="btn btn-link rounded" style="text-align:left; padding-left:12px"
+                       role="button">Admin</a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- _________________________________________MAIN____________________________________________________________ -->
+
+        <div class="col-sm-9 col-md-10 col-lg-10 pl-4 bg-light min-vh-100 main">
+            <br>
+            <h1 class="text">User information-page</h1>
+
+            <div class="navbar-header border rounded-top">
+                <h4 class="text pl-4">All users</h4>
+            </div>
+
+            <div class="container-fluid border rounded-bottom bg-white">
+                <br>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">Age</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Role</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:object="${oneUser}">
+                        <td th:text="*{id}"></td>
+                        <td th:text="*{name}"></td>
+                        <td th:text="*{surname}"></td>
+                        <td th:text="*{age}"></td>
+                        <td th:text="*{email}"></td>
+                        <td>
+                            <div class="container" th:each="r : ${oneUser.getRoleSet()}">
+                                <sp th:text="User" th:if="${r.getRoleName().endsWith('USER')}"></sp>
+                                <sp th:text="Admin" th:if="${r.getRoleName().endsWith('ADMIN')}"></sp>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+        crossorigin="anonymous"></script>
 
 </body>
 </html>

@@ -24,12 +24,9 @@ public class User {
     @Column(name = "age")
     private int age;
 
-    @Column(name = "job")
-    private String job;
-
-    @Column(name = "user_name")
+    @Column(name = "email")
     @NotNull
-    private String userName;
+    private String email;
 
     @Column(name = "password")
     @NotNull
@@ -41,21 +38,20 @@ public class User {
     private Set<Role> roleSet;
 
     @Transient
-    private String roleADMIN;
+    private boolean roleADMIN;
     @Transient
-    private String roleUSER;
+    private boolean roleUSER;
+
 
 
     public User() {
     }
 
-    public User(String name, String surname, int age, String job, String userName
-            , String password) {
+    public User(String name, String surname, int age, String email, String password) {
         this.name = name;
         this.surname = surname;
         this.age = age;
-        this.job = job;
-        this.userName = userName;
+        this.email = email;
         this.password = password;
     }
 
@@ -64,6 +60,17 @@ public class User {
             roleSet = new HashSet<>();
         }
         roleSet.add(role);
+    }
+
+    public void setRolesUserAndAdmin() {
+        for (Role role : roleSet) {
+            if (role.getRoleName().equals("ROLE_USER")) {
+                roleUSER = true;
+            }
+            if (role.getRoleName().equals("ROLE_ADMIN")) {
+                roleADMIN = true;
+            }
+        }
     }
 
 
@@ -99,22 +106,6 @@ public class User {
         this.age = age;
     }
 
-    public String getJob() {
-        return job;
-    }
-
-    public void setJob(String job) {
-        this.job = job;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -131,20 +122,34 @@ public class User {
         this.roleSet = roleSet;
     }
 
-    public String getRoleADMIN() {
+    public boolean getRoleADMIN() {
         return roleADMIN;
     }
 
-    public void setRoleADMIN(String roleADMIN) {
+    public void setRoleADMIN(boolean roleADMIN) {
         this.roleADMIN = roleADMIN;
     }
 
-    public String getRoleUSER() {
+    public boolean getRoleUSER() {
         return roleUSER;
     }
 
-    public void setRoleUSER(String roleUSER) {
+    public void setRoleUSER(boolean roleUSER) {
         this.roleUSER = roleUSER;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    public boolean isRoleADMIN() {
+        return roleADMIN;
+    }
+
+    public boolean isRoleUSER() {
+        return roleUSER;
+    }
 }

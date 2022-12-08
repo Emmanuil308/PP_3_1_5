@@ -13,10 +13,10 @@ public interface ServiceUser {
 
     public User getUserById(int id);
 
-    public void saveUser(User user);
+    public void saveUser(User user, String roles);
 
     public void removeUserById(int id);
 
-    public User getUserByUserName(String userName);
+    public User getUserByEmail(String email);
 
 }

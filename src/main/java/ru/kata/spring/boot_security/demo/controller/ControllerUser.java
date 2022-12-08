@@ -21,37 +21,20 @@ public class ControllerUser {
     }
 
 
-    @GetMapping("/admin/crud")
-    public String showAllUser(Model model) {
-
-        model.addAttribute("allUsers", serviceUser.getAllUser());
-
-        return "show-all";
-    }
-
-    @GetMapping("/admin/addUser")
-    public String addNewUser(Model model) {
-
-        User tempUser = new User();
-        model.addAttribute("saveOrUpdateUser", tempUser);
-
-        return "user-field";
-    }
-
     @PostMapping("/admin/saveUser")
-    public String saveUser(@ModelAttribute("saveOrUpdateUser") User user) {
+    public String saveUser(@ModelAttribute("newUser") User user, @RequestParam(required = false) String selectRole) {
 
-        serviceUser.saveUser(user);
+        serviceUser.saveUser(user,selectRole);
 
-        return "redirect:/api/admin/crud";
+        return "redirect:/api/admin";
     }
 
     @RequestMapping(value = "admin/updateUser")
-    public String updateUser(@ModelAttribute("id") int id, Model model) {
+    public String updateUser(@ModelAttribute("upUser") User user, @RequestParam(required = false) String selectRole) {
 
-        model.addAttribute("saveOrUpdateUser", serviceUser.getUserById(id));
+        serviceUser.saveUser(user,selectRole);
 
-        return "user-field";
+        return "redirect:/api/admin";
     }
 
     @RequestMapping(value = "admin/deleteUser")
@@ -59,20 +42,32 @@ public class ControllerUser {
 
         serviceUser.removeUserById(id);
 
-        return "redirect:/api/admin/crud";
+        return "redirect:/api/admin";
     }
 
     @GetMapping(value = "/admin")
-    public String adminHomePage() {
+    public String adminHomePage(Model model) {
+        model.addAttribute("allUsers", serviceUser.getAllUser());
 
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User userAuth = serviceUser.getUserByEmail(auth.getName());
+        userAuth.setRolesUserAndAdmin();
+        model.addAttribute("oneUser", userAuth);
+
+        User tempUser = new User();
+        model.addAttribute("newUser", tempUser);
         return "admin_home_page";
     }
 
     @GetMapping(value = "/user")
     public String userHomePage(Model model) {
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("oneUser", serviceUser.getUserByUserName(auth.getName()));
+        User userAuth = serviceUser.getUserByEmail(auth.getName());
+        userAuth.setRolesUserAndAdmin();
+        model.addAttribute("oneUser", userAuth);
 
         return "user_home_page";
     }
+
 }

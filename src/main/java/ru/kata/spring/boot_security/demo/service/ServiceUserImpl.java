@@ -34,16 +34,17 @@ public class ServiceUserImpl implements ServiceUser {
     }
 
     @Transactional
-    public void saveUser(User user) {
+    public void saveUser(User user, String roles) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        if (user.getRoleUSER() != null) {
-            user.addRoleForUser(new Role("ROLE_" + user.getRoleUSER()));
+        for (String str : roles.split(",")) {
+            if (str.equals("ROLE_USER")) {
+                user.addRoleForUser(new Role("ROLE_USER"));
+            }
+            if (str.equals("ROLE_ADMIN")) {
+                user.addRoleForUser(new Role("ROLE_ADMIN"));
+            }
         }
-        if (user.getRoleADMIN() != null) {
-            user.addRoleForUser(new Role("ROLE_" + user.getRoleADMIN()));
-        }
-
         daoUser.saveUser(user);
     }
 
@@ -54,7 +55,7 @@ public class ServiceUserImpl implements ServiceUser {
 
     @Override
     @Transactional
-    public User getUserByUserName(String userName) {
-        return daoUser.getUserByUserName(userName);
+    public User getUserByEmail(String email) {
+        return daoUser.getUserByEmail(email);
     }
 }
