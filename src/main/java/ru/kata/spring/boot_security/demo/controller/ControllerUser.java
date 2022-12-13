@@ -62,10 +62,10 @@ public class ControllerUser {
     @GetMapping(value = "/user")
     public String userHomePage(Model model) {
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User userAuth = serviceUser.getUserByEmail(auth.getName());
-        userAuth.setRolesUserAndAdmin();
-        model.addAttribute("oneUser", userAuth);
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        User userAuth = serviceUser.getUserByEmail(auth.getName());
+//        userAuth.setRolesUserAndAdmin();
+//        model.addAttribute("oneUser", userAuth);
 
         return "user_home_page";
     }

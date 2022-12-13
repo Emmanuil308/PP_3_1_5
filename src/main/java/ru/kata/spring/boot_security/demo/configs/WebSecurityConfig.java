@@ -34,23 +34,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .cors().disable()
-                .csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/api/user/**").hasAnyRole("ADMIN", "USER")
-                .antMatchers("/api/admin/**").hasRole("ADMIN")
-                .antMatchers("/", "/index").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin(form -> form
-                        .loginPage("/login")
-                        .successHandler(successUserHandler)
-                        .permitAll())
-                .logout()
-                .logoutUrl("/api/logout")
-                .logoutSuccessUrl("/login")
-                .permitAll();
+//        http
+//                .cors().disable()
+//                .csrf().disable()
+//                .authorizeRequests()
+//                .antMatchers("/api/user/**").hasAnyRole("ADMIN", "USER")
+//                .antMatchers("/api/admin/**").hasRole("ADMIN")
+//                .antMatchers("/", "/index").permitAll()
+//                .anyRequest().authenticated()
+//                .and()
+//                .formLogin(form -> form
+//                        .loginPage("/login")
+//                        .successHandler(successUserHandler)
+//                        .permitAll())
+//                .logout()
+//                .logoutUrl("/api/logout")
+//                .logoutSuccessUrl("/login")
+//                .permitAll();
+
+        http.csrf().disable().authorizeRequests().anyRequest().permitAll();
     }
 
     @Override
