@@ -71,5 +71,6 @@ public class ServiceUserImpl implements ServiceUser {
     @Transactional
     public User getUserByEmail(String email) {
         return daoUser.getUserByEmail(email);
+
     }
 }

@@ -4,9 +4,10 @@ async function getUserAuth() {
 }
 
 const jsonObject = JSON.parse(await getUserAuth())
-let textAllRole = "";
+let textAllRole;
 
-export function setInfoAboutUserTable() {
+function setInfoAboutUserTable() {
+    textAllRole = ""
     document.getElementById("id").innerHTML = jsonObject.id;
     document.getElementById("name").innerHTML = jsonObject.name;
     document.getElementById("surname").innerHTML = jsonObject.surname;
@@ -20,21 +21,29 @@ export function setInfoAboutUserTable() {
             textAllRole += "User" + " ";
         }
     }
-
+    document.getElementById("roles").innerHTML = textAllRole;
 }
 
-export function setInfoUserNavbarHeader() {
-    document.getElementById("roles").innerHTML = textAllRole;
+function setInfoUserNavbarHeader() {
+    textAllRole = "";
+    for (let i in jsonObject.roleSet) {
+        if (jsonObject.roleSet[i].roleName === "ROLE_ADMIN") {
+            textAllRole += "Admin" + " ";
+        }
+        if (jsonObject.roleSet[i].roleName === "ROLE_USER") {
+            textAllRole += "User" + " ";
+        }
+    }
     document.getElementById("navbarHeaderEmail").innerHTML = jsonObject.email;
     document.getElementById("navbarHeaderRoles").innerHTML = textAllRole;
 }
 
 
-// if (document.readyState === 'loading') {
-//     document.addEventListener('DOMContentLoaded', setInfoAboutUserTable);
-//     document.addEventListener('DOMContentLoaded', setInfoUserNavbarHeader);
-//
-// } else {
-//     setInfoAboutUserTable();
-//     setInfoUserNavbarHeader();
-// }
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setInfoAboutUserTable);
+    document.addEventListener('DOMContentLoaded', setInfoUserNavbarHeader);
+
+} else {
+    setInfoAboutUserTable();
+    setInfoUserNavbarHeader();
+}

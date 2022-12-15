@@ -23,12 +23,12 @@ public class UserDetailServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user;
-        try {
-            user = daoUser.getUserByEmail(email);
-        } catch (UsernameNotFoundException e) {
-            throw new UsernameNotFoundException("User not found!!!");
-        }
-        return SecurityUser.fromMyUser(user);
-
+//        try {
+//            user = daoUser.getUserByEmail(email);
+//        } catch (UsernameNotFoundException e) {
+//            throw new UsernameNotFoundException("User not found!!!");
+//        }
+//        return SecurityUser.fromMyUser(user);
+return null;
     }
 }

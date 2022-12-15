@@ -47,15 +47,15 @@ public class ControllerUser {
 
     @GetMapping(value = "/admin")
     public String adminHomePage(Model model) {
-        model.addAttribute("allUsers", serviceUser.getAllUser());
-
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User userAuth = serviceUser.getUserByEmail(auth.getName());
-        userAuth.setRolesUserAndAdmin();
-        model.addAttribute("oneUser", userAuth);
-
-        User tempUser = new User();
-        model.addAttribute("newUser", tempUser);
+//        model.addAttribute("allUsers", serviceUser.getAllUser());
+//
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        User userAuth = serviceUser.getUserByEmail(auth.getName());
+//        userAuth.setRolesUserAndAdmin();
+//        model.addAttribute("oneUser", userAuth);
+//
+//        User tempUser = new User();
+//        model.addAttribute("newUser", tempUser);
         return "admin_home_page";
     }
 
