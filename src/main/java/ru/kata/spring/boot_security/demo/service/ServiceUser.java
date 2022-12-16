@@ -13,7 +13,7 @@ public interface ServiceUser {
 
     public User getUserById(int id);
 
-    public void saveUser(User user, String roles);
+    public void saveUser(User user);
 
     public void removeUserById(int id);
 

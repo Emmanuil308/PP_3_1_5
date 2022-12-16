@@ -35,7 +35,7 @@ public class ServiceUserImpl implements ServiceUser {
     public User getUserById(int id) {
         Optional<User> userOptional = Optional.ofNullable(daoUser.getUserById(id));
 
-        if(userOptional.isPresent()){
+        if (userOptional.isPresent()) {
             return userOptional.get();
         } else {
             throw new MyNotFoundException("This User does not exist");
@@ -43,15 +43,11 @@ public class ServiceUserImpl implements ServiceUser {
     }
 
     @Transactional
-    public void saveUser(User user, String roles) {
-        if(user.getRoleSet() == null & roles == null) {                 // Посмотреть как заработает с roles
-            throw new MyNotRoleException("Role not selected for User");
-        } else if (roles != null & user.getRoleSet() != null) {
-            user.setRoleSet(null);
-        }
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+    public void saveUser(User user) {
 
-        for (String str : roles.split(",")) {
+        user.setRoleSet(null);
+
+        for (String str : user.getRoles().trim().split(" ")) {
             if (str.equals("ROLE_USER")) {
                 user.addRoleForUser(new Role("ROLE_USER"));
             }
@@ -59,6 +55,8 @@ public class ServiceUserImpl implements ServiceUser {
                 user.addRoleForUser(new Role("ROLE_ADMIN"));
             }
         }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
         daoUser.saveUser(user);
     }
 

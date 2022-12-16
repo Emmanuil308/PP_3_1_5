@@ -22,17 +22,17 @@ public class ControllerUser {
 
 
     @PostMapping("/admin/saveUser")
-    public String saveUser(@ModelAttribute("newUser") User user, @RequestParam(required = false) String selectRole) {
+    public String saveUser(@ModelAttribute("newUser") User user) {
 
-        serviceUser.saveUser(user,selectRole);
+        serviceUser.saveUser(user);
 
         return "redirect:/api/admin";
     }
 
     @RequestMapping(value = "admin/updateUser")
-    public String updateUser(@ModelAttribute("upUser") User user, @RequestParam(required = false) String selectRole) {
+    public String updateUser(@ModelAttribute("upUser") User user) {
 
-        serviceUser.saveUser(user,selectRole);
+        serviceUser.saveUser(user);
 
         return "redirect:/api/admin";
     }

@@ -15,10 +15,10 @@ public class GlobalExceptionHandler {
                 ,HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler
-    public ResponseEntity<BodyForMyException> catchMyNotRoleException(MyNotRoleException e){
-        e.getStackTrace();
-        return new ResponseEntity<>(new BodyForMyException(e.getMessage(), HttpStatus.BAD_REQUEST.value())
-                ,HttpStatus.BAD_REQUEST);
-    }
+//    @ExceptionHandler
+//    public ResponseEntity<BodyForMyException> catchMyNotRoleException(MyNotRoleException e){
+//        e.getStackTrace();
+//        return new ResponseEntity<>(new BodyForMyException(e.getMessage(), HttpStatus.BAD_REQUEST.value())
+//                ,HttpStatus.BAD_REQUEST);
+//    }
 }

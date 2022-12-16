@@ -1,15 +1,9 @@
 package ru.kata.spring.boot_security.demo.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import ru.kata.spring.boot_security.demo.entity.User;
 import ru.kata.spring.boot_security.demo.service.ServiceUser;
 
-import javax.servlet.http.Part;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 @RestController
@@ -34,8 +28,8 @@ public class RestControllerUser {
 
     @PostMapping("/users")
     public User saveNewUser(@RequestBody User user) {
-        System.out.println(user.getName() + "SAVE");
-//        serviceUser.saveUser(user,"ROLE_ADMIN");
+        System.out.println(user.getName()+ " " + "SAVE");
+        serviceUser.saveUser(user);
 
         return user;
     }
@@ -43,15 +37,15 @@ public class RestControllerUser {
     @PutMapping(value = "/users")
     public User updateUser(@RequestBody User user) {
 
-        serviceUser.saveUser(user,"ROLE_ADMIN");
+        serviceUser.saveUser(user);
 
         return user;
     }
 
-
     @DeleteMapping("/users/{id}")
     public String removeUserById(@PathVariable ("id") int id) {
         serviceUser.removeUserById(id);
+
         return "User with id=" + id + " delete from database";
     }
 
