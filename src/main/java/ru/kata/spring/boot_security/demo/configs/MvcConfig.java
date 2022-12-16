@@ -17,19 +17,4 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/user").setViewName("user_home_page");
     }
 
-//    @Bean(name = "commonsMultipartResolver")
-//    public MultipartResolver multipartResolver() {
-//        return new StandardServletMultipartResolver();
-//    }
-//
-//
-//    @Bean
-//    public MultipartConfigElement multipartConfigElement() {
-//        MultipartConfigFactory factory = new MultipartConfigFactory();
-//
-//        factory.setMaxFileSize(DataSize.parse("10MB"));
-//        factory.setMaxRequestSize(DataSize.parse("10MB"));
-//
-//        return factory.createMultipartConfig();
-//    }
 }

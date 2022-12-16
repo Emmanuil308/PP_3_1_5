@@ -1,5 +1,7 @@
 package ru.kata.spring.boot_security.demo.controller;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.entity.User;
 import ru.kata.spring.boot_security.demo.service.ServiceUser;
@@ -28,7 +30,7 @@ public class RestControllerUser {
 
     @PostMapping("/users")
     public User saveNewUser(@RequestBody User user) {
-        System.out.println(user.getName()+ " " + "SAVE");
+
         serviceUser.saveUser(user);
 
         return user;
@@ -49,4 +51,10 @@ public class RestControllerUser {
         return "User with id=" + id + " delete from database";
     }
 
+    @GetMapping(value = "/users/name")
+    public User getUserByName() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        return serviceUser.getUserByEmail(auth.getName());
+    }
 }

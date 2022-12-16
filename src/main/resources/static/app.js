@@ -1,5 +1,5 @@
 async function getUserAuth() {
-    return (await fetch('http://localhost:8080/api/users/1')).text();
+    return (await fetch('http://localhost:8080/api/users/name')).text();
 }
 
 async function getAllUsers() {
@@ -76,12 +76,13 @@ function setAllUserTable() {
     goBtnDelete();
 }
 
+// ________________________________________________AllUsersTable ____________________________________
+
 let urlForDelete;
 let formEdit;
 let formDelete;
 let formSaveNew = document.forms.formSaveNewUserName;
 let roles = "";
-// let allOptions;
 let selectEdit = document.getElementById("selectRoleEdit");
 let selectedOptionsEdit = selectEdit.selectedOptions;
 let selectSave = document.getElementById("saveNewSelectRole");
@@ -90,7 +91,6 @@ let textForUpdate;
 
 // ________________________________________________SaveNewUser/Submit ____________________________________
 
-// let btnAddNewUser = document.getElementById("btnAddNewUser");
 formSaveNew.addEventListener('submit', handleFormSubmitSave);
 
 async function handleFormSubmitSave(event) {
@@ -116,7 +116,6 @@ async function handleFormSubmitSave(event) {
 
     document.getElementById("TabAllUsersTable").click();
 
-    // document.getElementById("CloseButtonEdit").click();
 }
 
 async function sendDataSaveNew(data) {
@@ -124,7 +123,7 @@ async function sendDataSaveNew(data) {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(textForUpdate),
-    })
+    });
 }
 
 // ________________________________________________ModalWindowEdit ____________________________________
@@ -151,8 +150,6 @@ function goBtnEdit() {
             formEdit.elements.age.value = user.age;
             formEdit.elements.email.value = user.email;
             formEdit.elements.password.value = "";
-
-            // allOptions = Array.from(document.getElementsByTagName('option'));
 
             formEdit.addEventListener('submit', handleFormSubmitEdit);
         });
@@ -228,12 +225,6 @@ async function sendDataEdit(data) {
         body: JSON.stringify(textForUpdate),
     })
 }
-
-// Array.from(document.getElementsByName("close")).forEach(function (closeBtn) {
-//     closeBtn.addEventListener("click", function () {
-//         $("select").val([]);
-//     });
-// });
 
 // ________________________________________________SubmitDelete____________________________________
 

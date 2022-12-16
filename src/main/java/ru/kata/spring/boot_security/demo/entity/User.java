@@ -37,11 +37,6 @@ public class User {
             ,inverseJoinColumns = @JoinColumn(name = "id"))
     private Set<Role> roleSet;
 
-//    @Transient
-//    private boolean roleADMIN;
-//    @Transient
-//    private boolean roleUSER;
-
     @Transient
     private String roles;
 
@@ -63,17 +58,6 @@ public class User {
         }
         roleSet.add(role);
     }
-
-//    public void setRolesUserAndAdmin() {
-//        for (Role role : roleSet) {
-//            if (role.getRoleName().equals("ROLE_USER")) {
-//                roleUSER = true;
-//            }
-//            if (role.getRoleName().equals("ROLE_ADMIN")) {
-//                roleADMIN = true;
-//            }
-//        }
-//    }
 
 
     public int getId() {
@@ -124,22 +108,6 @@ public class User {
         this.roleSet = roleSet;
     }
 
-//    public boolean getRoleADMIN() {
-//        return roleADMIN;
-//    }
-//
-//    public void setRoleADMIN(boolean roleADMIN) {
-//        this.roleADMIN = roleADMIN;
-//    }
-//
-//    public boolean getRoleUSER() {
-//        return roleUSER;
-//    }
-//
-//    public void setRoleUSER(boolean roleUSER) {
-//        this.roleUSER = roleUSER;
-//    }
-
     public String getEmail() {
         return email;
     }
@@ -156,11 +124,4 @@ public class User {
         this.roles = roles;
     }
 
-    //    public boolean isRoleADMIN() {
-//        return roleADMIN;
-//    }
-//
-//    public boolean isRoleUSER() {
-//        return roleUSER;
-//    }
 }

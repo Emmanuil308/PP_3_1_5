@@ -1,6 +1,6 @@
 
 async function getUserAuth() {
-   return (await fetch('http://localhost:8080/api/users/1')).text();
+    return (await fetch('http://localhost:8080/api/users/name')).text();
 }
 
 const jsonObject = JSON.parse(await getUserAuth())

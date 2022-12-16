@@ -20,54 +20,17 @@ public class ControllerUser {
         this.serviceUser = serviceUser;
     }
 
-
-    @PostMapping("/admin/saveUser")
-    public String saveUser(@ModelAttribute("newUser") User user) {
-
-        serviceUser.saveUser(user);
-
-        return "redirect:/api/admin";
-    }
-
-    @RequestMapping(value = "admin/updateUser")
-    public String updateUser(@ModelAttribute("upUser") User user) {
-
-        serviceUser.saveUser(user);
-
-        return "redirect:/api/admin";
-    }
-
-    @RequestMapping(value = "admin/deleteUser")
-    public String deleteUser(@ModelAttribute("id") int id) {
-
-        serviceUser.removeUserById(id);
-
-        return "redirect:/api/admin";
-    }
-
     @GetMapping(value = "/admin")
-    public String adminHomePage(Model model) {
-//        model.addAttribute("allUsers", serviceUser.getAllUser());
-//
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        User userAuth = serviceUser.getUserByEmail(auth.getName());
-//        userAuth.setRolesUserAndAdmin();
-//        model.addAttribute("oneUser", userAuth);
-//
-//        User tempUser = new User();
-//        model.addAttribute("newUser", tempUser);
+    public String adminHomePage(Model model) {    // modelS
+
         return "admin_home_page";
     }
 
     @GetMapping(value = "/user")
     public String userHomePage(Model model) {
 
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        User userAuth = serviceUser.getUserByEmail(auth.getName());
-//        userAuth.setRolesUserAndAdmin();
-//        model.addAttribute("oneUser", userAuth);
-
         return "user_home_page";
     }
+
 
 }
