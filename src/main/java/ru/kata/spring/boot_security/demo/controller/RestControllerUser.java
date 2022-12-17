@@ -63,10 +63,14 @@ public class RestControllerUser {
     }
 
     @DeleteMapping("/users/{id}")
-    public String removeUserById(@PathVariable("id") int id) {
-        serviceUser.removeUserById(id);
-
-        return "User with id=" + id + " delete from database";
+    public ResponseEntity<String> removeUserById(@PathVariable("id") int id) {
+        try {
+            serviceUser.removeUserById(id);
+            String response = "User with id=" + id + " delete from database";
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping(value = "/users/name")
